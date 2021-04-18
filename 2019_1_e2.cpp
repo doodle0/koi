@@ -7,7 +7,7 @@
 
 int ls, rs;
 
-int isPal(char s[], int l, int r) {
+bool isPal(char s[], int l, int r) {
     while (l < r) {
         if (s[l] != s[r]) {
             ls = l;

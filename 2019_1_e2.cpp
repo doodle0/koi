@@ -1,54 +1,37 @@
-// 2019년 1차대회 초등부 2번
+// 2019년 1차대회 초등부 2번 - 함수를 이용한 풀이
 
 #include <stdio.h>
 #include <string.h>
- 
-#define MAX_LEN 100000
- 
+
+#define MAX_LEN 100001
+
+int ls, rs;
+
+int isPal(char s[], int l, int r) {
+    while (l < r) {
+        if (s[l] != s[r]) {
+            ls = l;
+            rs = r;
+            return false;
+        }
+        l++;
+        r--;
+    }
+    return true;
+}
+
 int main() {
     int t;
- 
     scanf("%d", &t);
     while (t--) {
-        char str[MAX_LEN + 1];
-        scanf("%s", str);
- 
-        int l = 0, r = strlen(str) - 1;
-        int ll, rr;
-         
-        bool isPal = true;
-        while (l < r) { // 회문인지 아닌지 검사
-            if (str[l] != str[r]) {
-                isPal = false;
-                break;
-            }
-            l++; r--;
+        char s[MAX_LEN];
+        scanf("%s", s);
+        int l = 0, r = strlen(s) - 1;
+        if (isPal(s, l, r)) {
+            printf("0\n");
+        } else {
+            int ll = ls, rr = rs;
+            printf("%d\n", isPal(s, ll, rr - 1) || isPal(s, ll + 1, rr) ? 1 : 2);
         }
- 
-        // 왼쪽 지우고 검사
-        ll = l + 1; rr = r;
-        bool isPsuLeft = true; // 왼쪽 지웠을 때 회문인지
-        while (ll < rr) {
-            if (str[ll] != str[rr]) {
-                isPsuLeft = false;
-                break;
-            }
-            ll++; rr--;
-        }
- 
-        // 오른쪽 지우고 검사
-        ll = l; rr = r - 1;
-        bool isPsuRight = true; // 오른쪽 지웠을 떄 회문인지
-        while (ll < rr) {
-            if (str[ll] != str[rr]) {
-                isPsuRight = false;
-                break;
-            }
-            ll++; rr--;
-        }
- 
-        if (isPal) printf("0\n");
-        else if (isPsuLeft || isPsuRight) printf("1\n");
-        else printf("2\n");
     }
 }
